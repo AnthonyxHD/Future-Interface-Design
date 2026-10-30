@@ -1,0 +1,16 @@
+# Python-Umgebung
+.venv/
+
+# Temporäre Python-Dateien
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Zugangsdaten
+.env
+.env.*
+
+# Heruntergeladenes ML-Modell
+*.task
