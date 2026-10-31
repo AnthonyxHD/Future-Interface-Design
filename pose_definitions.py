@@ -15,5 +15,17 @@ POSEN = {
         "seitlicher_abstand": 0.12,
         "ellbogen_min": 160,
         "haltezeit": 2.0
+    },
+
+    "Warrior II": {
+        "typ": "krieger_2",
+        "sichtbarkeit": 0.6,
+        "hoehen_toleranz": 0.12,
+        "seitlicher_abstand": 0.12,
+        "ellbogen_min": 160,
+        "knie_gebeugt_min": 85,
+        "knie_gebeugt_max": 145,
+        "knie_gestreckt_min": 155,
+        "haltezeit": 2.0
     }
 }
