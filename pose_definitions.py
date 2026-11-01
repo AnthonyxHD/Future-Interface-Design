@@ -10,14 +10,6 @@ POSEN = {
         "ellbogen_min": 160,
     },
 
-    "T-Pose": {
-        "typ": "seitlich",
-        "sichtbarkeit": 0.6,
-        "hoehen_toleranz": 0.10,
-        "seitlicher_abstand": 0.12,
-        "ellbogen_min": 160,
-    },
-
     "Warrior II": {
         "typ": "krieger_2",
         "sichtbarkeit": 0.6,
@@ -50,7 +42,40 @@ POSEN = {
         "huefte_min": 90,
         "huefte_max": 155,
     },
+
+    "Dreieck": {
+        "typ": "dreieck",
+        "sichtbarkeit": 0.6,
+        "ellbogen_min": 150,
+        "knie_min": 150,
+        "fuss_abstand_min": 0.22,
+        "neigung_min": 25,
+        "neigung_max": 80,
+        "hand_oben_abstand": 0.08,
+        "hand_unten_abstand": 0.15,
+        "knie_naehe_toleranz": 0.12
+    },
+
+    "T-Pose": {
+        "typ": "seitlich",
+        "sichtbarkeit": 0.6,
+        "hoehen_toleranz": 0.10,
+        "seitlicher_abstand": 0.12,
+        "ellbogen_min": 160,
+    }
 }
+
+# Reihenfolge für die Tastatursteuerung festlegen
+REIHENFOLGE = (
+    "Arme oben",
+    "Warrior II",
+    "Baum",
+    "Stuhl",
+    "Dreieck",
+    "T-Pose"
+)
+
+POSEN = {name: POSEN[name] for name in REIHENFOLGE}
 
 # Standard-Haltezeit für alle Posen übernehmen
 for pose in POSEN.values():
