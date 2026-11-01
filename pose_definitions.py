@@ -33,7 +33,7 @@ POSEN = {
         "typ": "baum",
         "sichtbarkeit": 0.6,
         "hand_ueber_schulter": 0.10,
-        "ellbogen_min": 140,
+        "ellbogen_min": 150,
         "knie_gebeugt_min": 35,
         "knie_gebeugt_max": 130,
         "knie_gestreckt_min": 155,
@@ -41,5 +41,18 @@ POSEN = {
         "fuss_nahe_bein": 0.16,
         "knie_seitlich_min": 0.06,
         "haltezeit": 2.0
-    }
+    },
+
+    "Stuhl": {
+        "typ": "stuhl",
+        "sichtbarkeit": 0.6,
+        "knie_min": 105,
+        "knie_max": 160,
+        "huefte_min": 90,
+        "huefte_max": 155,
+        "haltezeit": 2.0
+    },
+
+
+
 }
