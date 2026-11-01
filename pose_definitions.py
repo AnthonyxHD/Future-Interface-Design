@@ -49,11 +49,11 @@ POSEN = {
         "ellbogen_min": 150,
         "knie_min": 150,
         "fuss_abstand_min": 0.22,
-        "neigung_min": 25,
+        "neigung_min": 20,
         "neigung_max": 80,
         "hand_oben_abstand": 0.08,
         "hand_unten_abstand": 0.15,
-        "knie_naehe_toleranz": 0.12
+        "knie_naehe_toleranz": 0.15
     },
 
     "T-Pose": {

@@ -196,6 +196,107 @@ def pruefe_stuhl(p, regel: dict, breite: int, hoehe: int) -> bool:
     )
 
 
+def pruefe_dreieck(p, regel: dict, breite: int, hoehe: int) -> bool:
+    """Erkennt eine vereinfachte Dreieck-Pose auf beiden Seiten."""
+
+    # 1. Sind Arme und Beine ausreichend sichtbar?
+    erforderliche_punkte = (*ARM_PUNKTE, *BEIN_PUNKTE)
+
+    if not punkte_sichtbar(
+        p, erforderliche_punkte, regel["sichtbarkeit"]
+    ):
+        return False
+
+    # 2. Ellbogenwinkel berechnen
+    ellbogen_links = berechne_winkel(
+        p[SCHULTER_L], p[ELLBOGEN_L], p[HAND_L],
+        breite, hoehe
+    )
+    ellbogen_rechts = berechne_winkel(
+        p[SCHULTER_R], p[ELLBOGEN_R], p[HAND_R],
+        breite, hoehe
+    )
+
+    # 3. Kniewinkel berechnen
+    knie_links, knie_rechts = kniewinkel(p, breite, hoehe)
+
+    winkel = (
+        ellbogen_links, ellbogen_rechts,
+        knie_links, knie_rechts
+    )
+
+    if any(w is None for w in winkel):
+        return False
+
+    arme_ok = (
+        ellbogen_links >= regel["ellbogen_min"]
+        and ellbogen_rechts >= regel["ellbogen_min"]
+    )
+
+    beine_ok = (
+        knie_links >= regel["knie_min"]
+        and knie_rechts >= regel["knie_min"]
+    )
+
+    # 4. Sind die Fuesse ausreichend weit auseinander?
+    fuesse_ok = (
+        abs(p[FUSS_L].x - p[FUSS_R].x)
+        >= regel["fuss_abstand_min"]
+    )
+
+    # 5. Neigung des Oberkoerpers berechnen
+    schulter_x = (p[SCHULTER_L].x + p[SCHULTER_R].x) / 2
+    schulter_y = (p[SCHULTER_L].y + p[SCHULTER_R].y) / 2
+
+    huefte_x = (p[HUEFTE_L].x + p[HUEFTE_R].x) / 2
+    huefte_y = (p[HUEFTE_L].y + p[HUEFTE_R].y) / 2
+
+    dx = abs(schulter_x - huefte_x) * breite
+    dy = abs(schulter_y - huefte_y) * hoehe
+
+    neigung = math.degrees(math.atan2(dx, dy))
+
+    neigung_ok = (
+        regel["neigung_min"]
+        <= neigung
+        <= regel["neigung_max"]
+    )
+
+    # 6. Eine Hand oben, die andere unten
+    knie_hoehe = min(p[KNIE_L].y, p[KNIE_R].y)
+
+    def arm_oben(hand, schulter):
+        return (
+            p[hand].y
+            < p[schulter].y - regel["hand_oben_abstand"]
+        )
+
+    def arm_unten(hand, schulter):
+        return (
+            p[hand].y
+            > p[schulter].y + regel["hand_unten_abstand"]
+            and p[hand].y
+            >= knie_hoehe - regel["knie_naehe_toleranz"]
+        )
+
+    # Beide Ausrichtungen akzeptieren
+    arme_position_ok = (
+        arm_oben(HAND_L, SCHULTER_L)
+        and arm_unten(HAND_R, SCHULTER_R)
+    ) or (
+        arm_oben(HAND_R, SCHULTER_R)
+        and arm_unten(HAND_L, SCHULTER_L)
+    )
+
+    # 7. Alle Bedingungen muessen erfuellt sein
+    return (
+        arme_ok
+        and beine_ok
+        and fuesse_ok
+        and neigung_ok
+        and arme_position_ok
+    )
+
 def erkenne_pose(p, regel: dict, breite: int, hoehe: int) -> bool:
     """Prüft eine Pose gegen ihre konfigurierten 2D-Regeln.
 
@@ -205,6 +306,9 @@ def erkenne_pose(p, regel: dict, breite: int, hoehe: int) -> bool:
     typ = regel["typ"]
     if typ == "stuhl":
         return pruefe_stuhl(p, regel, breite, hoehe)
+
+    if typ == "dreieck":
+        return pruefe_dreieck(p, regel, breite, hoehe)
 
     if typ not in ("oben", "seitlich", "krieger_2", "baum"):
         return False
