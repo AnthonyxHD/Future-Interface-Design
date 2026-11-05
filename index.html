@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga Coach</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+    <!-- SCREEN 1: Pose auswählen -->
+    <main id="auswahl-screen" class="screen">
+        <h1>Wähle deine Yoga-Pose</h1>
+
+        <div class="pose-grid">
+            <button data-pose="Arme oben">Arme oben</button>
+            <button data-pose="Warrior II">Krieger II</button>
+            <button data-pose="Baum">Baum</button>
+            <button data-pose="Stuhl">Stuhl</button>
+            <button data-pose="Dreieck">Dreieck</button>
+        </div>
+    </main>
+
+
+    <!-- SCREEN 2: Kamera -->
+    <section id="kamera-screen" class="screen hidden">
+
+        <div class="kamera-bereich">
+
+            <div class="kamera-header">
+                <h2 id="aktuelle-pose"></h2>
+                <button id="beenden-btn">✕ Beenden</button>
+            </div>
+
+            <img
+                id="kamera-video"
+                alt="Livebild deiner Kamera"
+            >
+
+            <!-- Nur für den Prototyp -->
+            <button id="test-erfolg-btn">
+                Erfolg simulieren
+            </button>
+
+        </div>
+
+    </section>
+
+    </section>
+
+
+    <!-- SCREEN 3: Erfolg -->
+    <section id="erfolg-screen" class="screen hidden">
+        <div class="erfolg-inhalt">
+            <h1>GUT GEMACHT!</h1>
+            <p>Du hast die Pose erfolgreich gehalten!</p>
+
+            <div class="erfolg-buttons">
+                <button id="wiederholen-btn">Wiederholen</button>
+                <button id="neue-pose-btn">Neue Pose</button>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
