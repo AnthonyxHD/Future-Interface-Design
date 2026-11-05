@@ -39,10 +39,25 @@
                 alt="Livebild deiner Kamera"
             >
 
-            <!-- Nur für den Prototyp -->
-            <button id="test-erfolg-btn">
-                Erfolg simulieren
-            </button>
+
+            <div id="pose-feedback">
+                <div class="feedback-text">
+                    <span id="feedback-status">Nimm deine Pose ein</span>
+                    <span id="feedback-zeit">0.0 / 2.0 s</span>
+                </div>
+
+                <div
+                    class="progress-track"
+                    id="pose-progress"
+                    role="progressbar"
+                    aria-label="Haltefortschritt"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="0"
+                >
+                    <div id="progress-fill"></div>
+                </div>
+            </div>
 
         </div>
 
